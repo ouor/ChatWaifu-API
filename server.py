@@ -18,6 +18,7 @@ import socket
 from navertts import NaverTTS
 import datetime
 import glob
+import time
 
 class SocketServer:
     def __init__(self, host, port):
@@ -157,7 +158,8 @@ class openai_session():
     
     def send_message(self, message):
         try:
-            self.messages.append({"role": "user", "content": message})
+            if message:
+                self.messages.append({"role": "user", "content": message})
             res = openai.ChatCompletion.create(
                 model=self.model,
                 messages=self.messages if len(self.messages) <= 30 else [self.messages[0]] + self.messages[-9:],
@@ -234,10 +236,9 @@ def main():
         print("인사말: "+ greeting)
 
     while True:
-        question = server.receive()
-        print("Question Received: " + question)
+        time.sleep(15)
 
-        answer = oai.send_message(question)
+        answer = oai.send_message('')
         print("ChatGPT:", answer)
 
         tts_audio_path = tts.generateSound(answer, speaker)

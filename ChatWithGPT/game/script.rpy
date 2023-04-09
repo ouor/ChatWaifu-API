@@ -80,25 +80,17 @@ label getApiKey:
 label uploadSetting:
     $ renpy.block_rollback()
     python:
-        token = renpy.input("원하는 배경 설정을 입력해주세요")
+        token = renpy.input("원하는 배경 설정을 입력해주세요",
+        default="당신은 사용자와 여자친구 역할을 수행합니다. 당신의 이름은 이초현이고, 주기적으로 안부 인사나 좋은말을 해줘야 합니다. 반말로 말하는 것을 잊지 마세요.")
         client.send(token.encode())
     jump uploadInit
 
 label uploadInit:
     $ renpy.block_rollback()
     python:
-        token = renpy.input("해당 캐릭터의 첫 대사를 입력해주세요")
+        token = renpy.input("해당 캐릭터의 첫 대사를 입력해주세요",
+        default="안녕 오늘 하루는 어땠어?")
         client.send(token.encode())
-    jump talk_keyboard
-
-    
-label talk_keyboard:
-    $ renpy.block_rollback()
-    show hiyori m02
-    python:
-        message = renpy.input("나：")
-        client.send(message.encode())
-        data = bytes()
     jump checkRes
 
 label checkRes:
@@ -139,4 +131,4 @@ label answer:
     voice sustain
     
     $ client.send("음성 재생 완료".encode())
-    jump talk_keyboard
+    jump checkRes

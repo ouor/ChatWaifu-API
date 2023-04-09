@@ -8,7 +8,10 @@
 
 [original readme](README-original.md)
 
-> ## How to run
+## 좋은말 봇
+배경 설정을 지정해주면 15초 단위로 좋은말을 해줍니다.
+
+## How to run
 ### Create virtual environment (optional)
 ```
 python -m venv venv
